@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>WHISPER // VOICE TO TEXT</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23c8ff00' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="cross">+</span> WHISPER<span class="dim"> // LOCAL</span></div>
+    <div class="chip" id="chip"><i></i><span id="chip-text">CONNECTING</span></div>
+  </header>
+
+  <section class="hero">
+    <h1>VOICE<br><span class="acid">&rarr;TEXT</span></h1>
+    <p class="lead">Нажми на кнопку и говори. Нажми ещё раз, и через несколько секунд текст будет готов и скопирован в буфер обмена. Всё считается на твоей машине, ничего не уходит в интернет.</p>
+  </section>
+
+  <section class="panel" id="rec-panel">
+    <div class="tag">[01] RECORD</div>
+    <div class="rec-grid">
+      <div class="stage">
+        <canvas id="rings" aria-hidden="true"></canvas>
+        <button id="rec" class="rec-btn" type="button" aria-label="Начать запись">
+          <svg class="ico ico-mic" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          <svg class="ico ico-stop" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12"/></svg>
+        </button>
+      </div>
+      <div class="controls">
+        <div class="timer" id="timer">00:00</div>
+        <div class="hint" id="hint">TAP TO RECORD</div>
+        <label class="field">
+          <span>LANGUAGE</span>
+          <select id="lang">
+            <option value="auto">AUTO DETECT</option>
+            <option value="ru">RU · Русский</option>
+            <option value="en">EN · English</option>
+            <option value="uk">UK · Українська</option>
+            <option value="de">DE · Deutsch</option>
+            <option value="fr">FR · Français</option>
+            <option value="es">ES · Español</option>
+            <option value="it">IT · Italiano</option>
+            <option value="pl">PL · Polski</option>
+            <option value="zh">ZH · 中文</option>
+            <option value="ja">JA · 日本語</option>
+          </select>
+        </label>
+        <div class="keys"><kbd>SPACE</kbd> старт и стоп</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="result-panel">
+    <div class="tag">[02] TRANSCRIPT</div>
+    <div class="statusline">
+      <span id="state">EMPTY</span>
+      <span id="pct"></span>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <textarea id="text" spellcheck="false" placeholder="Здесь появится текст…" readonly></textarea>
+    <div class="meta-row">
+      <span id="meta"></span>
+      <span id="saved"></span>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="btn-copy" type="button" disabled>COPY</button>
+      <button class="btn" id="btn-txt" type="button" disabled>TXT</button>
+      <button class="btn" id="btn-srt" type="button" disabled>SRT</button>
+      <button class="btn" id="btn-audio" type="button" disabled>AUDIO</button>
+      <button class="btn" id="btn-mp3" type="button" disabled>MP3</button>
+    </div>
+  </section>
+
+  <section class="panel" id="archive-panel">
+    <div class="tag">[03] ARCHIVE <span class="dim" id="count">00</span></div>
+    <div id="history" class="history"></div>
+  </section>
+
+  <footer class="foot">
+    <span>+</span><span>WHISPER LOCAL</span><span id="foot-note"></span><span>+</span>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/app.js"></script>
+</body>
+</html>

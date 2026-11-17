@@ -1,0 +1,15 @@
+[Unit]
+Description=Whisper local web app
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/whisper-app
+ExecStart=%h/whisper-app/run.sh
+Restart=on-failure
+RestartSec=3
+Environment=WHISPER_HOST=127.0.0.1
+Environment=WHISPER_PORT=8765
+
+[Install]
+WantedBy=default.target
