@@ -1,34 +1,19 @@
-import os
 import sys
 from pathlib import Path
 
-from huggingface_hub import snapshot_download
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-base = Path(__file__).resolve().parent.parent
-name = os.environ.get("WHISPER_MODEL", "large-v3")
-target = Path(os.environ.get("WHISPER_MODEL_DIR", base / "models" / name))
-repo = os.environ.get("WHISPER_REPO", f"Systran/faster-whisper-{name}")
+from server import catalog, config, models
 
-if (target / "model.bin").exists():
-    print(f"Модель уже на месте: {target}")
-    sys.exit(0)
+wanted = sys.argv[1:] or [config.DEFAULT_MODEL]
 
-target.mkdir(parents=True, exist_ok=True)
-print(f"Скачиваю {repo} в {target}")
-snapshot_download(
-    repo,
-    local_dir=str(target),
-    allow_patterns=[
-        "config.json",
-        "preprocessor_config.json",
-        "model.bin",
-        "tokenizer.json",
-        "vocabulary.*",
-    ],
-)
-
-if not (target / "model.bin").exists():
-    print("model.bin не появился, проверь название модели и соединение", file=sys.stderr)
-    sys.exit(1)
-
-print("Готово")
+for model_id in wanted:
+    entry = catalog.get(model_id)
+    if entry is None:
+        sys.exit(f"Неизвестная модель {model_id}. Доступны: {', '.join(catalog.ids())}")
+    if models.installed(model_id):
+        print(f"Модель {model_id} уже на месте: {models.path(model_id)}")
+        continue
+    print(f"Скачиваю {model_id} ({entry['repo']}), около {entry['size_mb']} МБ")
+    models.fetch(model_id)
+    print(f"Готово: {models.path(model_id)}")

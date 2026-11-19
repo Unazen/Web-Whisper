@@ -1,0 +1,108 @@
+MODELS = [
+    {
+        "id": "tiny",
+        "repo": "Systran/faster-whisper-tiny",
+        "title": "tiny",
+        "badge": "минимум",
+        "size_mb": 78,
+        "vram_mb": 1000,
+        "speed": 5,
+        "quality": 1,
+        "lang": "multi",
+        "desc": "Самая маленькая и быстрая. Нужна, чтобы проверить, что всё работает. Русский распознаёт плохо.",
+    },
+    {
+        "id": "base",
+        "repo": "Systran/faster-whisper-base",
+        "title": "base",
+        "badge": "",
+        "size_mb": 148,
+        "vram_mb": 1000,
+        "speed": 5,
+        "quality": 2,
+        "lang": "multi",
+        "desc": "Чуть точнее tiny и так же мгновенная. Для русского слабовата, чёткую английскую речь разбирает нормально.",
+    },
+    {
+        "id": "small",
+        "repo": "Systran/faster-whisper-small",
+        "title": "small",
+        "badge": "для CPU",
+        "size_mb": 487,
+        "vram_mb": 2000,
+        "speed": 4,
+        "quality": 2,
+        "lang": "multi",
+        "desc": "Компромисс для слабого железа и работы на процессоре. На русском заметны ошибки в именах и терминах.",
+    },
+    {
+        "id": "medium",
+        "repo": "Systran/faster-whisper-medium",
+        "title": "medium",
+        "badge": "запасная",
+        "size_mb": 1530,
+        "vram_mb": 3500,
+        "speed": 3,
+        "quality": 3,
+        "lang": "multi",
+        "desc": "Приличная точность при умеренных требованиях. Подходит, когда видеокарта занята рендером и расшифровка идёт на CPU.",
+    },
+    {
+        "id": "large-v2",
+        "repo": "Systran/faster-whisper-large-v2",
+        "title": "large-v2",
+        "badge": "",
+        "size_mb": 3090,
+        "vram_mb": 5000,
+        "speed": 2,
+        "quality": 5,
+        "lang": "multi",
+        "desc": "Предыдущее поколение большой модели. Иногда стабильнее v3 на шумных записях, в остальном v3 обычно точнее.",
+    },
+    {
+        "id": "large-v3",
+        "repo": "Systran/faster-whisper-large-v3",
+        "title": "large-v3",
+        "badge": "точность",
+        "size_mb": 3090,
+        "vram_mb": 5000,
+        "speed": 2,
+        "quality": 5,
+        "lang": "multi",
+        "desc": "Самая точная мультиязычная модель. Лучший выбор для русского и смешанной речи. Занимает около 5 ГБ видеопамяти.",
+    },
+    {
+        "id": "large-v3-turbo",
+        "repo": "mobiuslabsgmbh/faster-whisper-large-v3-turbo",
+        "title": "large-v3-turbo",
+        "badge": "скорость",
+        "size_mb": 1620,
+        "vram_mb": 3500,
+        "speed": 4,
+        "quality": 4,
+        "lang": "multi",
+        "desc": "large-v3 с урезанным декодером: в несколько раз быстрее, качество близко к large-v3. Хороший вариант на каждый день.",
+    },
+    {
+        "id": "distil-large-v3",
+        "repo": "Systran/faster-distil-whisper-large-v3",
+        "title": "distil-large-v3",
+        "badge": "только English",
+        "size_mb": 1510,
+        "vram_mb": 3500,
+        "speed": 4,
+        "quality": 4,
+        "lang": "en",
+        "desc": "Облегчённая large-v3, быстрая и точная, но понимает только английский. Для русской речи не подходит.",
+    },
+]
+
+_BY_ID = {m["id"]: m for m in MODELS}
+
+
+def get(model_id):
+    return _BY_ID.get(model_id)
+
+
+def ids():
+    return [m["id"] for m in MODELS]

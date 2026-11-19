@@ -37,7 +37,7 @@ if ! command -v ffmpeg >/dev/null 2>&1; then
   echo "ВНИМАНИЕ: ffmpeg не найден. Он нужен только для скачивания в MP3: sudo pacman -S ffmpeg" >&2
 fi
 
-echo "==> Скачиваю модель (large-v3, около 3 ГБ)"
+echo "==> Скачиваю модель по умолчанию (large-v3, около 3 ГБ). Другие модели можно скачать позже на сайте."
 python scripts/download_model.py
 
 chmod +x run.sh env.sh setup.sh
